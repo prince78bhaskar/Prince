@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Frontend Practices</title>
+   <style>
+        /* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f4ff;
+  color: #222;
+  line-height: 1.5;
+  padding: 0 16px;
+}
+
+header {
+  background-color: #195ccf;
+  padding: 12px 20px;
+  text-align: right;
+}
+header h1{
+    color: #fff;
+    font-size: 24px;
+    margin: 0;
+    display: inline-block;
+    display: flex;
+    text-align: left;
+}
+header a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 16px;
+  font-weight: bold;
+  transition: opacity 0.3s ease;
+}
+
+header a:hover {
+  opacity: 0.8;
+}
+
+main {
+  max-width: 900px;
+  margin: 20px auto;
+}
+
+.dashboard {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  margin-bottom: 24px;
+}
+
+/* Profile section */
+.profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.score-badge {
+  background-color: #195ccf;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+/* Banner */
+.banner {
+  background-color: #edf2ff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.banner h2 {
+  color: #195ccf;
+  font-size: 22px;
+  margin-bottom: 6px;
+}
+
+/* Categories */
+.category h4 {
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f7f9fc;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+
+.tag:hover {
+    color: red;
+  background-color: #1ce7f5;
+  transform: scale(1.02);
+}
+
+.tag img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* Recent Activity */
+main > div:last-of-type {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+footer {
+  margin-top: 40px;
+  text-align: center;
+  padding: 20px;
+  color: #777;
+}
+
+    </style>
+</head>
+<body>
+
+  <header>
+    <h1>Frontend Practices</h1>
+    <a href="login.html">Login</a>
+    <a href="signup.html">Signup</a>
+  </header>
+
+  <main>
+    <div class="dashboard">
+      <div class="profile">
+        <span>User</span>
+        <span class="score-badge">Score:</span>
+      </div>
+
+      <div class="banner">
+        <h2>Quiz of the Day</h2>
+        <p>Test your knowledge with our daily quiz!</p>
+      </div>
+
+      <div class="category">
+        <h4>Categories</h4>
+        <div class="tags">
+          <span class="tag" data-category="Fundamentals of Computer"><img src="fundamentals.png" /> Fundamentals of Computer</span>
+          <span class="tag" data-category="HTML"><img src="html.png" /> HTML</span>
+          <span class="tag" data-category="CSS"><img src="css.png" /> CSS</span>
+          <span class="tag" data-category="JavaScript"><img src="javascript.png" /> JavaScript</span>
+          <span class="tag" data-category="Python"><img src="python.png" /> Python</span>
+          <span class="tag" data-category="Java"><img src="java.png" /> Java</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h2>Recent Activity</h2>
+      <div id="questions" class="questions-box" style="display: none;"></div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2023 Frontend Practices. All rights reserved.This app made devnova Team.
+  </footer>
+
+ 
+<script>
+  const tags = document.querySelectorAll(".tag");
+  const questionsDiv = document.getElementById("questions");
+
+  const questionsData = {
+    "Fundamentals of Computer": [
+      { question: "What is a computer?", options: ["A machine that processes data", "A type of software", "A programming language"], answer: 0 },
+
+    ],
+    "HTML": [
+      { question: "What does HTML stand for?", options: ["Hyper Text Markup Language", "Home Tool Markup Language", "Hyperlinks and Text Markup Language"], answer: 0 },
+      { question: "Which HTML element is used to define the title of a document?", options: ["<title>", "<head>", "<meta>"], answer: 0 },
+      // ... [aapke aur questions yahin rahenge, unchanged]
+      { question: "What is the purpose of the <head> tag in HTML?", options: ["To define the header of a document", "To contain metadata and links to scripts and styles", "To create a navigation menu"], answer: 1 },
+         { question: "Which HTML element is used to define an unordered list?", options: ["<ol>", "<ul>", "<list>"], answer: 1 },
+        //qustion 5
+        { question: "What is the purpose of the <a> tag in HTML?", options: ["To create a link", "To define an image", "To create a table"], answer: 0 },
+        //qustion 6
+        { question: "Which HTML attribute is used to specify the URL of an image?", options: ["src", "href", "link"], answer: 0 },
+        //qustion 7
+        { question: "What is the correct HTML element for inserting a line break?", options: ["<break>", "<br>", "<lb>"], answer: 1 },
+        //qustion 8
+        { question: "Which HTML element is used to define a table?", options: ["<table>", "<tab>", "<tbl>"], answer: 0 },
+        //qustion 9
+        { question: "What is the purpose of the <form> tag in HTML?", options: ["To create a form for user input", "To define a table", "To create a link"], answer: 0 },
+        //qustion 10
+        { question: "Which HTML element is used to define a footer for a document or section?", options: ["<footer>", "<bottom>", "<section>"], answer: 0 },
+        //qustion 11
+        { question: "What is the correct HTML element for the main content of a document?", options: ["<main>", "<content>", "<body>"], answer: 0 },
+        //qustion 12
+        { question: "Which HTML element is used to define a navigation link?", options: ["<navigation>", "<nav>", "<link>"], answer: 1 },
+        //qustion 13
+        { question: "What is the purpose of the <meta> tag in HTML?", options: ["To define metadata about an HTML document", "To create a link", "To define a table"], answer: 0 },
+        //qustion 14
+        { question: "Which HTML element is used to define a section in a document?", options: ["<section>", "<div>", "<article>"], answer: 0 },
+        //qustion 15
+        { question: "What is the correct HTML element for defining a list item?", options: ["<li>", "<list>", "<item>"], answer: 0 },
+        //qustion 16
+        { question: "Which HTML element is used to define a header for a document or section?", options: ["<Top>", "<head>", "<Header>"], answer: 2 },
+        //qustion 17
+        { question: "What is the purpose of the <link> tag in HTML?", options: ["To link to external resources", "To define a table", "To create a form"], answer: 0 },
+        //qustion 18
+        { question: "Which HTML element is used to define a block of text that is quoted from another source?", options: ["<blockquote>", "<quote>", "<cited>"], answer: 0 },
+        //qustion 19
+        { question: "What is the correct HTML element for defining a text input field?", options: ["<input>", "<textfield>", "<text>"], answer: 0 },
+        //qustion 20
+        { question: "Which HTML element is used to define a clickable button?", options: ["<button>", "<click>", "<input>"], answer: 0 },
+        //qustion 21
+        { question: "What is the purpose of the <style> tag in HTML?", options: ["To define CSS styles", "To create a link", "To define a table"], answer: 0 },
+        //qustion 22
+        { question: "Which HTML element is used to define a form for user input?", options: ["<form>", "<input>", "<field>"], answer: 0 },
+        //qustion 23
+        { question: "What is the correct HTML element for defining a checkbox?", options: ["<checkbox>", "<input type='checkbox'>", "<check>"], answer: 1 },
+        //qustion 24
+        { question: "Which HTML element is used to define a drop-down list?", options: ["<select>", "<dropdown>", "<list>"], answer: 0 },
+        //qustion 25
+        { question: "What is the purpose of the <script> tag in HTML?", options: ["To define JavaScript code", "To create a link", "To define a table"], answer: 0 },
+        //qustion 26
+        { question: "Which HTML element is used to define a table row?", options: ["<tr>", "<row>", "<table-row>"], answer: 0 },
+        //qustion 27
+        { question: "What is the correct HTML element for defining a table header?", options: ["<th>", "<header>", "<table-header>"], answer: 0 },
+        //qustion 28
+        { question: "Which HTML element is used to define a table cell?", options: ["<td>", "<cell>", "<table-cell>"], answer: 0 },
+        //qustion 29
+        { question: "What is the purpose of the <iframe> tag in HTML?", options: ["To embed another document within the current document", "To create a link", "To define a table"], answer: 0 },
+        //qustion 30
+        { question: "Which HTML element is used to define a navigation menu?", options: ["<nav>", "<menu>", "<navigation>"], answer: 0 },
+      { question: "Which tag is used for a paragraph?", options: ["<div>", "<p>", "<span>"], answer: 1 },
+        //qustion 31
+      { question: "What is the correct HTML element for inserting a line break?", options: ["<break>", "<br>", "<lb>"], answer: 1 },
+        //qustion 32
+        { question: "Which HTML attribute specifies an alternate text for an image, if the image cannot be displayed?", options: ["src", "alt", "title"], answer: 1 },
+        //qustion 33
+        { question: "What is the purpose of the <head> tag in HTML?", options: ["To define the header of a document", "To contain metadata and links to scripts and styles", "To create a navigation menu"], answer: 1 }
+    ],
+    "CSS":[
+      {qustion: "What dose CSS stand for?", options: ["Cascading Style Sheets", "Computer Style Sheets", "Colorful Style Sheets"], answer: 0},
+      {question: "Which property is used to change the background color?", options: ["bgcolor", "background-color", "color"], answer: 1},
+      {question: "How do you add a comment in CSS?", options: ["// this is a comment", "<!-- this is a comment -->", "/* this is a comment */"], answer: 2},
+      {question: "Which property is used to change the text color of an element?", options: ["text-color", "color", "font-color"], answer: 1},
+      {question: "How do you select an element with id 'demo'?", options: ["#demo", ".demo", "demo"], answer: 0},
+      {question: "Which CSS property controls the text size?", options: ["text-size", "font-size", "text-style"], answer: 1},
+      {question: "How do you make a list that lists its items with squares?", options: ["list-style-type: square;", "list: square;", "list-style: square;"], answer: 0},
+      {question: "Which property is used to change the font of an element?", options: ["font-family", "font-style", "font-weight"], answer: 0},
+      {question: "How do you make the text bold in CSS?", options: ["font-weight: bold;", "font: bold;", "text-style: bold;"], answer: 0},
+      {question: "Which property is used to change the left margin of an element?", options: ["margin-left", "padding-left", "indent"], answer: 0},
+      {question: "How do you display a border around an element?", options: ["border: solid;", "border-style: solid;", "border: 1px solid;"], answer: 2},
+      {question: "Which CSS property is used to change the text style of an element?", options: ["text-style", "font-style", "text-decoration"], answer: 1},
+      {question: "How do you create a flexbox layout?", options: ["display: flex;", "flex: 1;", "layout: flex;"], answer: 0},
+      {question: "Which property is used to change the height of an element?", options: ["height", "h", "size"], answer: 0},
+      {question: "How do you create a CSS grid layout?", options: ["display: grid;", "grid: 1;", "layout: grid;"], answer: 0},
+      {question: "Which property is used to change the width of an element?", options: ["width", "w", "size"], answer: 0},
+      {question: "How do you create a responsive design in CSS?", options: ["@media queries", "flexbox", "grid"], answer: 0},
+      {question: "Which property is used to change the font size of an element?", options: ["font-size", "text-size", "size"], answer: 0},
+      {question: "How do you center an element in CSS?", options: ["margin: auto;", "text-align: center;", "align: center;"], answer: 0},
+      {question: "Which property is used to change the opacity of an element?", options
+: ["opacity", "visibility", "display"], answer: 0},
+      {question: "How do you create a hover effect in CSS?", options: ["element:hover", "element:hover()", "element:hovered"], answer: 0},
+      {question: "Which property is used to change the font weight of an element?", options: ["font-weight", "font-style", "text-weight"], answer: 0},
+      {question: "How do you create a CSS transition?", options: ["transition: all 0.5s;", "transition: 0.5s;", "transition-effect: all 0.5s;"], answer: 0},
+      {question: "Which property is used to change the text alignment of an element?", options: ["text-align", "align", "text-position"], answer: 0}
+    ]
+  };
+
+  let currentQuestions = [];
+  let correctAnswers = 0;
+  let totalQuestions = 0;
+
+  tags.forEach(tag => {
+    tag.addEventListener("click", () => {
+      const category = tag.getAttribute("data-category");
+
+      if (!questionsData[category]) {
+        questionsDiv.innerHTML = `<p>No questions available for ${category}.</p>`;
+        questionsDiv.style.display = "block";
+        return;
+      }
+
+      currentQuestions = questionsData[category];
+      totalQuestions = currentQuestions.length;
+      correctAnswers = 0;
+
+      renderQuestions(currentQuestions);
+      questionsDiv.style.display = "block";
+    });
+  });
+
+  function renderQuestions(questions) {
+    questionsDiv.innerHTML = "";
+    questions.forEach((q, index) => {
+      const container = document.createElement("div");
+      container.style.marginBottom = "16px";
+
+      const question = document.createElement("p");
+      question.textContent = `${index + 1}. ${q.question}`;
+      container.appendChild(question);
+
+      q.options.forEach((opt, i) => {
+        const label = document.createElement("label");
+        label.style.display = "block";
+
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = `question${index}`;
+        radio.value = i;
+        label.appendChild(radio);
+        label.append(` ${opt}`);
+        container.appendChild(label);
+      });
+
+      questionsDiv.appendChild(container);
+    });
+
+    const submitBtn = document.createElement("button");
+    submitBtn.textContent = "Submit Answers";
+    submitBtn.style.marginTop = "20px";
+    submitBtn.style.display = "block";
+    submitBtn.style.marginLeft = "auto";
+    submitBtn.style.marginRight = "auto";
+    submitBtn.style.padding = "10px 20px";
+    submitBtn.style.borderRadius = "8px";
+    submitBtn.style.border = "none";
+    submitBtn.style.backgroundColor = "#195ccf";
+    submitBtn.style.color = "white";
+    submitBtn.style.fontWeight = "bold";
+    submitBtn.style.cursor = "pointer";
+    submitBtn.onclick = handleSubmit;
+    questionsDiv.appendChild(submitBtn);
+
+    const progress = document.createElement("p");
+    progress.id = "progress";
+    progress.style.marginTop = "16px";
+    progress.style.textAlign = "center";
+    questionsDiv.appendChild(progress);
+  }
+
+  function handleSubmit() {
+    correctAnswers = 0;
+
+    currentQuestions.forEach((q, index) => {
+      const selected = document.querySelector(`input[name="question${index}"]:checked`);
+      const questionContainer = document.querySelectorAll(".questions-box > div")[index];
+
+      questionContainer.style.padding = "10px";
+      questionContainer.style.borderRadius = "8px";
+
+      if (selected) {
+        const selectedValue = parseInt(selected.value);
+        if (selectedValue === q.answer) {
+          correctAnswers++;
+          questionContainer.style.backgroundColor = "#d4edda"; // green
+          questionContainer.style.border = "1px solid #28a745";
+        } else {
+          questionContainer.style.backgroundColor = "#f8d7da"; // red
+          questionContainer.style.border = "1px solid #dc3545";
+
+          const correctAnswerText = document.createElement("p");
+          correctAnswerText.textContent = `✅ Correct Answer: ${q.options[q.answer]}`;
+          correctAnswerText.style.color = "#155724";
+          correctAnswerText.style.marginTop = "6px";
+          questionContainer.appendChild(correctAnswerText);
+        }
+      } else {
+        questionContainer.style.backgroundColor = "#fff3cd"; // yellow
+        questionContainer.style.border = "2px solid #ffc107";
+
+        const notAnsweredText = document.createElement("p");
+        notAnsweredText.textContent = `⚠️ You did not answer this question. Correct Answer: ${q.options[q.answer]}`;
+        notAnsweredText.style.color = "#856404";
+        notAnsweredText.style.marginTop = "6px";
+        questionContainer.appendChild(notAnsweredText);
+      }
+    });
+
+    document.getElementById("progress").textContent = `🎯 You answered ${correctAnswers} out of ${totalQuestions} correctly.`;
+  }
+</script>
+
+</body>
+</html>
